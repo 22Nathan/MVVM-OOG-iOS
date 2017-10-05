@@ -11,4 +11,6 @@ target 'MVVM-OOG-iOS' do
     pod 'SwiftDate', '~> 4.0'
     pod 'SDWebImage', '~> 4.0'
     pod 'RealmSwift'
+    pod 'RxSwift', '~> 3.0'
+    pod 'RxCocoa', '~> 3.0'
 end
