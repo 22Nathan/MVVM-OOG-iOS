@@ -10,6 +10,9 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 import RxSwift
+import Moya
+import RealmSwift
+import Realm
 
 struct LoginViewModel {
     var model : LoginModel?
@@ -21,11 +24,15 @@ struct LoginViewModel {
     let bag = DisposeBag()
     
     func requestLogin(){
+        guard let tel = model?.telephone, let password = model?.password else{
+            return
+        }
+
         var parameters = [String : String]()
-        parameters["tel"] = model?.telephone
-        parameters["password"] = model?.password
+        parameters["tel"] = tel
+        parameters["password"] = password
         
-        Alamofire.request(ApiHelper.API_Root + "/users/login/",
+        Alamofire.request(ApiHelper.API_Root + "users/login/",
                           method: .get, parameters: parameters, encoding: URLEncoding.default).responseJSON {response in
                             switch response.result.isSuccess {
                             case true:
@@ -34,6 +41,17 @@ struct LoginViewModel {
                                     print(json)
                                     let result = json["result"]
                                     if result == "ok"{
+                                        let user = User()
+                                        user.username = result["username"].stringValue
+                                        user.userID = result["id"].stringValue
+                                        user.uuid = result["uuid"].stringValue
+                                        user.tel = tel
+                                        user.password = password
+                                
+                                        let realm = try! Realm()
+                                        try! realm.write {
+                                            realm.add(user, update: true)
+                                        }
                                         self.loginInfoSubject.onNext("ok")
                                     }
                                     else{

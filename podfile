@@ -3,7 +3,7 @@ platform:ios,'10.0'
 use_frameworks!
 target 'MVVM-OOG-iOS' do
     pod 'Alamofire','~> 4.4.0'
-#    pod 'Moya'
+    pod 'Moya'
     pod 'SwiftyJSON'
     pod 'SVProgressHUD'
 #    pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
@@ -11,7 +11,7 @@ target 'MVVM-OOG-iOS' do
 #    pod 'DGElasticPullToRefresh'
 #    pod 'SwiftDate', '~> 4.0'
 #    pod 'SDWebImage', '~> 4.0'
-#    pod 'RealmSwift'
+    pod 'RealmSwift'
     pod 'RxSwift', '~> 3.3'
     pod 'RxCocoa', '~> 3.3'
 #    pod 'RxDataSources'
