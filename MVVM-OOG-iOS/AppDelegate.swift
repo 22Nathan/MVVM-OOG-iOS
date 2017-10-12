@@ -7,16 +7,28 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    /*
+         1.uuid为空 ，数据库为空
+         2.uuid不为空，数据库为空
+         3.uuid不为空，数据库不为空
+     */
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        let LoginVC = LoginViewController()
-//        var rootVC = RootNavigationController(rootViewController: MovementsVC)
-        self.window?.rootViewController = LoginVC
+        let realm = try! Realm()
+        if Cache.uuidCache.isEmpty == false && realm.objects(User.self).filter("uuid = \(Cache.uuidCache.value)").isEmpty == false{
+            let mainVC = MainTarBarViewController()
+            //        var rootVC = RootNavigationController(rootViewController: MovementsVC)
+            self.window?.rootViewController = mainVC
+        }else{
+            let LoginVC = LoginViewController()
+            self.window?.rootViewController = LoginVC
+        }
         return true
     }
 

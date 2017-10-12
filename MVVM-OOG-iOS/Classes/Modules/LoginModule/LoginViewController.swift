@@ -29,7 +29,8 @@ class LoginViewController: UIViewController {
         loginButton.addTarget(self, action: #selector(login), for: .touchDown)
         viewModel.loginInfo.subscribe(
             onNext:{ text in
-                SVProgressHUD.showInfo(withStatus: text)
+                let mainTabBarVC = MainTarBarViewController()
+                self.present(mainTabBarVC, animated: true, completion: nil)
             },
             onError:{ error in
                 SVProgressHUD.showError(withStatus: error.localizedDescription)
@@ -44,12 +45,14 @@ class LoginViewController: UIViewController {
         self.view.backgroundColor = UIColor.white
         
         teleTextField.placeholder = "请输入手机号"
+        teleTextField.text = "15051857918"
         teleTextField.borderStyle = .roundedRect
         teleTextField.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view).inset(UIEdgeInsetsMake(120, 75, self.view.frame.size.height - 120 - 30, 75))
         }
         
         passwordTextField.placeholder = "请输入密码"
+        passwordTextField.text = "123456"
         passwordTextField.borderStyle = .roundedRect
         passwordTextField.snp.makeConstraints { (make) in
             make.edges.equalTo(self.view).inset(UIEdgeInsetsMake(170, 75, self.view.frame.size.height - 170 - 30, 75))

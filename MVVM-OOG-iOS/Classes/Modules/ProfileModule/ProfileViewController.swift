@@ -1,20 +1,21 @@
 //
-//  MovementsViewController.swift
+//  ProfileViewController.swift
 //  MVVM-OOG-iOS
 //
-//  Created by Nathan on 11/10/2017.
+//  Created by Nathan on 12/10/2017.
 //  Copyright © 2017 Nathan. All rights reserved.
 //
 
 import UIKit
 
-class MovementsViewController: UIViewController {
+class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        // Do any additional setup after loading the view.
     }
-    
+
     /*
     // MARK: - Navigation
 

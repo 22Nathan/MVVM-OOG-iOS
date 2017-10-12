@@ -48,10 +48,12 @@ struct LoginViewModel {
                                         user.tel = tel
                                         user.password = password
                                 
-                                        let realm = try! Realm()
-                                        try! realm.write {
-                                            realm.add(user, update: true)
+                                        guard let realm = try? Realm() else {
+                                            return
                                         }
+                                        updateObjc(user, with: realm)
+                                        Cache.uuidCache.value = user.uuid
+                                        
                                         self.loginInfoSubject.onNext("ok")
                                     }
                                     else{

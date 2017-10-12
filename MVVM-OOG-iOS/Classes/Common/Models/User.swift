@@ -21,9 +21,6 @@ class User : Object{
     override static func primaryKey() -> String? {
         return "userID"
     }
-
-
-    
 //
 //    init(_ username : String,
 //         _ tel : String,
