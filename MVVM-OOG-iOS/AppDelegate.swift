@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
      */
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         let realm = try! Realm()
-        if Cache.uuidCache.isEmpty == false && realm.objects(User.self).filter("uuid = \(Cache.uuidCache.value)").isEmpty == false{
+        if Cache.uuidCache.isEmpty == false && realm.objects(User.self).filter("uuid == '\(Cache.uuidCache.value)'").isEmpty == false{
             let mainVC = MainTarBarViewController()
             //        var rootVC = RootNavigationController(rootViewController: MovementsVC)
             self.window?.rootViewController = mainVC

@@ -38,13 +38,12 @@ struct LoginViewModel {
                             case true:
                                 if let value = response.result.value {
                                     let json = SwiftyJSON.JSON(value)
-                                    print(json)
                                     let result = json["result"]
                                     if result == "ok"{
                                         let user = User()
-                                        user.username = result["username"].stringValue
-                                        user.userID = result["id"].stringValue
-                                        user.uuid = result["uuid"].stringValue
+                                        user.username = json["username"].stringValue
+                                        user.userID = json["id"].stringValue
+                                        user.uuid = json["uuid"].stringValue
                                         user.tel = tel
                                         user.password = password
                                 

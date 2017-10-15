@@ -12,6 +12,7 @@ import RxSwift
 import SVProgressHUD
 
 class LoginViewController: UIViewController {
+    
     var teleTextField = UITextField()
     var passwordTextField = UITextField()
     var loginButton = UIButton()
@@ -21,9 +22,8 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(teleTextField)
-        self.view.addSubview(passwordTextField)
-        self.view.addSubview(loginButton)
+        view.backgroundColor = UIColor.white
+        view.addSubViews(subViews: [teleTextField,passwordTextField,loginButton])
         initialUI()
         
         loginButton.addTarget(self, action: #selector(login), for: .touchDown)
@@ -42,20 +42,18 @@ class LoginViewController: UIViewController {
     }
     
     private func initialUI(){
-        self.view.backgroundColor = UIColor.white
-        
         teleTextField.placeholder = "请输入手机号"
         teleTextField.text = "15051857918"
         teleTextField.borderStyle = .roundedRect
         teleTextField.snp.makeConstraints { (make) in
-            make.edges.equalTo(self.view).inset(UIEdgeInsetsMake(120, 75, self.view.frame.size.height - 120 - 30, 75))
+            make.edges.equalTo(view).inset(UIEdgeInsetsMake(120, 75, view.frame.size.height - 120 - 30, 75))
         }
         
         passwordTextField.placeholder = "请输入密码"
         passwordTextField.text = "123456"
         passwordTextField.borderStyle = .roundedRect
         passwordTextField.snp.makeConstraints { (make) in
-            make.edges.equalTo(self.view).inset(UIEdgeInsetsMake(170, 75, self.view.frame.size.height - 170 - 30, 75))
+            make.edges.equalTo(view).inset(UIEdgeInsetsMake(170, 75, view.frame.size.height - 170 - 30, 75))
         }
 
         loginButton.setTitle("Login", for: .normal)
@@ -64,7 +62,7 @@ class LoginViewController: UIViewController {
         loginButton.frame.size = CGSize(width: 100, height: 30)
         loginButton.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.centerY.equalTo(self.view).offset(-100)
+            make.centerY.equalTo(view).offset(-100)
         }
     }
     
