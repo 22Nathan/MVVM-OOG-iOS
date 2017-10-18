@@ -9,11 +9,12 @@
 import UIKit
 import SnapKit
 import RxSwift
+import RxCocoa
 import SVProgressHUD
 
 class LoginViewController: UIViewController {
     
-    var teleTextField = UITextField()
+    var telTextField = UITextField()
     var passwordTextField = UITextField()
     var loginButton = UIButton()
     
@@ -23,8 +24,55 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
-        view.addSubViews(subViews: [teleTextField,passwordTextField,loginButton])
+        view.addSubViews(subViews: [telTextField,passwordTextField,loginButton])
         initialUI()
+        
+        //Subscribe Valid telNumber
+        let telObservable = self.telTextField.rx.text.asObservable().map { (input: String?) -> Bool in
+            return ValidInputHelper.isValidTel(tel: input!)
+            }
+        
+        telObservable.map { (valid: Bool) -> UIColor in
+            return valid ? #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            }.subscribe(
+                onNext: {
+                    self.telTextField.layer.borderColor = $0.cgColor
+                },
+                onDisposed:{
+                    print("telObserble disposed")
+                }
+            ).addDisposableTo(bag)
+        
+        //Subscribe Valid password
+        let passwordObservale = self.passwordTextField.rx.text.asObservable().map { (input: String?) -> Bool in
+            return ValidInputHelper.isValidPassword(password: input!)
+            }
+        
+        passwordObservale.map { (valid: Bool) -> UIColor in
+            return valid ? #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1) : #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+            }.subscribe(
+                onNext: {
+                    self.passwordTextField.layer.borderColor = $0.cgColor
+                },
+                onDisposed:{
+                    print("telObserble disposed")
+                }
+            ).addDisposableTo(bag)
+        
+        //Subscribe enable login Button
+        Observable.combineLatest(telObservable, passwordObservale) {
+            (validTel: Bool, valdPassword: Bool) -> [Bool] in
+                return [validTel,valdPassword]
+            }.map { (input: [Bool]) -> Bool in
+                return input.reduce(true, {$0 && $1})
+            }.subscribe(
+                onNext: { input in
+                    self.loginButton.isEnabled = input
+                },
+                onDisposed:{
+                    print("loginButton enable disposed")
+                }
+            ).addDisposableTo(bag)
         
         loginButton.addTarget(self, action: #selector(login), for: .touchDown)
         viewModel.loginInfo.subscribe(
@@ -42,32 +90,29 @@ class LoginViewController: UIViewController {
     }
     
     private func initialUI(){
-        teleTextField.placeholder = "请输入手机号"
-        teleTextField.text = "15051857918"
-        teleTextField.borderStyle = .roundedRect
-        teleTextField.snp.makeConstraints { (make) in
-            make.edges.equalTo(view).inset(UIEdgeInsetsMake(120, 75, view.frame.size.height - 120 - 30, 75))
-        }
+        telTextField.placeholder = "请输入手机号"
+        telTextField.text = "15051857918"
+        telTextField.borderStyle = .roundedRect
+        telTextField.layer.borderWidth = 1
+        telTextField.top(0.2 * UIScreen.main.bounds.height).centerX().left(75).right(75)
         
         passwordTextField.placeholder = "请输入密码"
+        passwordTextField.isSecureTextEntry = true
         passwordTextField.text = "123456"
         passwordTextField.borderStyle = .roundedRect
-        passwordTextField.snp.makeConstraints { (make) in
-            make.edges.equalTo(view).inset(UIEdgeInsetsMake(170, 75, view.frame.size.height - 170 - 30, 75))
-        }
+        passwordTextField.layer.borderWidth = 1
+        passwordTextField.below(telTextField,40).centerX().left(75).right(75)
 
         loginButton.setTitle("Login", for: .normal)
         loginButton.isEnabled = true
-        loginButton.setTitleColor(UIColor.black, for: .normal)
+        loginButton.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
+        loginButton.setTitleColor(#colorLiteral(red: 0.7574584487, green: 0.7574584487, blue: 0.7574584487, alpha: 1), for: .disabled)
         loginButton.frame.size = CGSize(width: 100, height: 30)
-        loginButton.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
-            make.centerY.equalTo(view).offset(-100)
-        }
+        loginButton.below(passwordTextField,30).centerX().left(120).right(120)
     }
     
     func login(){
-        let data = LoginModel(teleTextField.text!,passwordTextField.text!)
+        let data = LoginModel(telTextField.text!,passwordTextField.text!)
         viewModel.model = data
         viewModel.requestLogin()
     }

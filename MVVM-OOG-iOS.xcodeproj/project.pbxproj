@@ -35,6 +35,7 @@
 		53B6C2371F909E850027CD4E /* TextAttributesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B6C2361F909E850027CD4E /* TextAttributesHelper.swift */; };
 		53B6C2391F90A0870027CD4E /* MovementsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B6C2381F90A0870027CD4E /* MovementsTableView.swift */; };
 		53B6C23B1F91109E0027CD4E /* MovementTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B6C23A1F91109E0027CD4E /* MovementTableViewCell.swift */; };
+		53DB65C51F977E8000FEDE47 /* ValidInputHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53DB65C41F977E8000FEDE47 /* ValidInputHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		53B6C2361F909E850027CD4E /* TextAttributesHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesHelper.swift; sourceTree = "<group>"; };
 		53B6C2381F90A0870027CD4E /* MovementsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementsTableView.swift; sourceTree = "<group>"; };
 		53B6C23A1F91109E0027CD4E /* MovementTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementTableViewCell.swift; sourceTree = "<group>"; };
+		53DB65C41F977E8000FEDE47 /* ValidInputHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidInputHelper.swift; sourceTree = "<group>"; };
 		A9FAD44B310317404434FC56 /* Pods-MVVM-OOG-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVM-OOG-iOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MVVM-OOG-iOS/Pods-MVVM-OOG-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		AE96EEA3870DCB809C869C2A /* Pods-MVVM-OOG-iOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MVVM-OOG-iOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-MVVM-OOG-iOS/Pods-MVVM-OOG-iOS.release.xcconfig"; sourceTree = "<group>"; };
 		EA9A333EC3A2F0C339A0AC9A /* Pods_MVVM_OOG_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MVVM_OOG_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -207,6 +209,7 @@
 				53AD8E671F8B6A320066191C /* FontHelper.swift */,
 				539E1A301F8BAD7B00E769D5 /* ErrorHelper.swift */,
 				53B6C2361F909E850027CD4E /* TextAttributesHelper.swift */,
+				53DB65C41F977E8000FEDE47 /* ValidInputHelper.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -417,6 +420,7 @@
 				5359B7C71F86817200855322 /* AppDelegate.swift in Sources */,
 				539E1A311F8BAD7B00E769D5 /* ErrorHelper.swift in Sources */,
 				538D278D1F8F773600E093FA /* Cache.swift in Sources */,
+				53DB65C51F977E8000FEDE47 /* ValidInputHelper.swift in Sources */,
 				539E1A3D1F8E6BCD00E769D5 /* User.swift in Sources */,
 				539E1A331F8E42E500E769D5 /* ApiRouter.swift in Sources */,
 				53AD8E5F1F8B5E950066191C /* LoginModel.swift in Sources */,
