@@ -30,7 +30,7 @@ class MovementsViewController: UIViewController,UIScrollViewDelegate {
     
     private func initialUI(){
         //initial segmentedControl
-        segmentedControl.top(0).left(0).right(0)
+        segmentedControl.top(25).left(0).right(0)
         segmentedControl.tintColor = UIColor.clear
         
         segmentedControl.insertSegment(withTitle: "动态", at: 0, animated: false)
@@ -43,17 +43,19 @@ class MovementsViewController: UIViewController,UIScrollViewDelegate {
         scrollView.frame = CGRect(x: 0, y: segmentedControl.frame.height, width: view.frame.width, height: view.frame.height - segmentedControl.frame.height)
         scrollView.below(segmentedControl).width(view.frame.width).height(view.frame.height - segmentedControl.frame.height)
         scrollView.delegate = self
-//        scrollView.isPagingEnabled = true
+        scrollView.isPagingEnabled = true
         let scrollViewFrame = scrollView.bounds
         scrollView.contentSize = CGSize(width: scrollViewFrame.size.width * CGFloat(segmentedControl.numberOfSegments), height: scrollViewFrame.size.height)
-//        scrollView.showsHorizontalScrollIndicator = false
-//        scrollView.showsVerticalScrollIndicator = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
         scrollView.scrollsToTop = false
         scrollView.bounces = false
         
         //initial tableView
+        movementTableView.frame = scrollViewFrame
+        movementTableView.allowsSelection = false
         scrollView.addSubview(movementTableView)
-        movementTableView.closelyInside(scrollView)
+//        movementTableView.closelyInside(scrollView)
         movementTableView.delegate = self
         movementTableView.dataSource = self
         movementTableView.register(MovementTableViewCell.self, forCellReuseIdentifier: "Movement")

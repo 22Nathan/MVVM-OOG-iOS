@@ -14,6 +14,7 @@ extension MovementsViewController : UITableViewDelegate{
 }
 
 extension MovementsViewController: UITableViewDataSource{
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return testArray.count
     }
@@ -21,12 +22,13 @@ extension MovementsViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return testArray[section].count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Movement", for: indexPath) as! MovementTableViewCell
         cell.textLabel?.text = testArray[indexPath.section][indexPath.row]
-//        cell.delegate = self
+        //        cell.delegate = self
         return cell
     }
+
 }
 

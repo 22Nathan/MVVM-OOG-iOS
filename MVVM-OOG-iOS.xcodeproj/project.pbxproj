@@ -94,6 +94,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		534D9B981F99EF49002E13DA /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				5359B7CD1F86817200855322 /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		5359B7BA1F86817200855322 = {
 			isa = PBXGroup;
 			children = (
@@ -116,9 +124,9 @@
 			isa = PBXGroup;
 			children = (
 				5359B7C61F86817200855322 /* AppDelegate.swift */,
-				5359B7D21F86817200855322 /* Info.plist */,
 				53AD8E561F8B5DE70066191C /* Classes */,
 				53AD8E571F8B5DF10066191C /* Kit */,
+				534D9B981F99EF49002E13DA /* Resource */,
 				5359B7D81F8695F200855322 /* SupportingFiles */,
 			);
 			path = "MVVM-OOG-iOS";
@@ -127,8 +135,8 @@
 		5359B7D81F8695F200855322 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				5359B7D21F86817200855322 /* Info.plist */,
 				5359B7CA1F86817200855322 /* Main.storyboard */,
-				5359B7CD1F86817200855322 /* Assets.xcassets */,
 				5359B7CF1F86817200855322 /* LaunchScreen.storyboard */,
 			);
 			path = SupportingFiles;
@@ -571,7 +579,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "MVVM-OOG-iOS/Info.plist";
+				INFOPLIST_FILE = "MVVM-OOG-iOS/SupportingFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nathan.MVVM-OOG-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -586,7 +594,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "MVVM-OOG-iOS/Info.plist";
+				INFOPLIST_FILE = "MVVM-OOG-iOS/SupportingFiles/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nathan.MVVM-OOG-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";

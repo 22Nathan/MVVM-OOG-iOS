@@ -65,16 +65,20 @@ class LoginViewController: UIViewController {
                 return [validTel,valdPassword]
             }.map { (input: [Bool]) -> Bool in
                 return input.reduce(true, {$0 && $1})
-            }.subscribe(
-                onNext: { input in
-                    self.loginButton.isEnabled = input
-                },
-                onDisposed:{
-                    print("loginButton enable disposed")
-                }
-            ).addDisposableTo(bag)
+            }
+            .bind(to: loginButton.rx.isEnabled)
+            .addDisposableTo(bag)
         
         loginButton.addTarget(self, action: #selector(login), for: .touchDown)
+        
+        /*
+         这样订阅，而alamofire直接create一个observable,返回的是LoginModel对象。
+         但我觉得这里的情况给一个提示信息就可以了，因为view要做的只是转场操作，缓存应该放在viewmodel里
+         loginButton.rx.tap
+         .map{
+         
+         }
+         */
         viewModel.loginInfo.subscribe(
             onNext:{ text in
                 let mainTabBarVC = MainTarBarViewController()
