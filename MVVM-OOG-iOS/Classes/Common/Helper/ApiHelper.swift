@@ -11,5 +11,4 @@ import Foundation
 class ApiHelper{
     static let API_Root : String = "http://101.132.41.248:8000/v1/"
     
-    
 }

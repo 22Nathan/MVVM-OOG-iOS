@@ -14,7 +14,7 @@ class Movement : Object{
     @objc dynamic var movementID : String = ""
     @objc dynamic var content : String = ""
     @objc dynamic var imageNumber : Float = 0.0
-//    @objc dynamic var imageUrls : [String] = []
+//    @objc dynamic var imageUrls : String = ""
     @objc dynamic var owner_avatar : String = ""
     @objc dynamic var owner_userName : String = ""
     @objc dynamic var owner_position : String = ""

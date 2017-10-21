@@ -11,6 +11,7 @@ import Moya
 
 enum UserAPI{
     case Info(userID: String)
+    case SubscribeMovement(userID: String)
 }
 
 extension UserAPI: TargetType{
@@ -20,26 +21,32 @@ extension UserAPI: TargetType{
         switch self {
         case .Info(let userID):
             return "users/" + userID
+        case .SubscribeMovement(_):
+            return "movements/all/"
         }
     }
     
     var method: Moya.Method{
         switch self {
-        case .Info:
+        case .Info, .SubscribeMovement:
             return .get
         }
     }
     
     var parameterEncoding: ParameterEncoding {
         switch self {
-        case .Info :
-            return URLEncoding.default // Send parameters in URL for GET, DELETE and HEAD. For other HTTP methods, parameters will be sent in request body
+        case .Info:
+            return URLEncoding.default
+        case .SubscribeMovement:
+            return JSONEncoding.default
         }
     }
     
     var sampleData: Data {
         switch self {
         case .Info(let userID):
+            return "{\"UserID\": \(userID)}".utf8Encoded
+        case .SubscribeMovement(let userID):
             return "{\"UserID\": \(userID)}".utf8Encoded
         }
     }
@@ -48,6 +55,8 @@ extension UserAPI: TargetType{
         switch self {
         case .Info:
             return .requestPlain
+        case .SubscribeMovement(let userID):
+            return .requestParameters(parameters: ["id" : userID], encoding: URLEncoding.queryString)
         }
     }
     var headers: [String: String]? {
@@ -58,4 +67,9 @@ extension UserAPI: TargetType{
         return route.baseURL.appendingPathComponent(route.path).absoluteString
     }
 }
+
+enum MovementAPI{
+    case Detail(movementID: String)
+}
+
 

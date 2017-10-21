@@ -29,7 +29,6 @@
 		53AD8E611F8B5EE90066191C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AD8E601F8B5EE90066191C /* LoginViewController.swift */; };
 		53AD8E631F8B5F160066191C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AD8E621F8B5F160066191C /* LoginViewModel.swift */; };
 		53AD8E661F8B6A250066191C /* ApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AD8E651F8B6A250066191C /* ApiHelper.swift */; };
-		53AD8E681F8B6A320066191C /* FontHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53AD8E671F8B6A320066191C /* FontHelper.swift */; };
 		53B6C2331F9098EF0027CD4E /* ExtUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B6C2321F9098EF0027CD4E /* ExtUIView.swift */; };
 		53B6C2351F909B1E0027CD4E /* Movement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B6C2341F909B1E0027CD4E /* Movement.swift */; };
 		53B6C2371F909E850027CD4E /* TextAttributesHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53B6C2361F909E850027CD4E /* TextAttributesHelper.swift */; };
@@ -62,7 +61,6 @@
 		53AD8E601F8B5EE90066191C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		53AD8E621F8B5F160066191C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		53AD8E651F8B6A250066191C /* ApiHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHelper.swift; sourceTree = "<group>"; };
-		53AD8E671F8B6A320066191C /* FontHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontHelper.swift; sourceTree = "<group>"; };
 		53B6C2321F9098EF0027CD4E /* ExtUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtUIView.swift; sourceTree = "<group>"; };
 		53B6C2341F909B1E0027CD4E /* Movement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movement.swift; sourceTree = "<group>"; };
 		53B6C2361F909E850027CD4E /* TextAttributesHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextAttributesHelper.swift; sourceTree = "<group>"; };
@@ -214,7 +212,6 @@
 			isa = PBXGroup;
 			children = (
 				53AD8E651F8B6A250066191C /* ApiHelper.swift */,
-				53AD8E671F8B6A320066191C /* FontHelper.swift */,
 				539E1A301F8BAD7B00E769D5 /* ErrorHelper.swift */,
 				53B6C2361F909E850027CD4E /* TextAttributesHelper.swift */,
 				53DB65C41F977E8000FEDE47 /* ValidInputHelper.swift */,
@@ -348,12 +345,15 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MVVM-OOG-iOS/Pods-MVVM-OOG-iOS-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
@@ -361,12 +361,15 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -417,7 +420,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				538D278B1F8F767500E093FA /* MovementsViewModel.swift in Sources */,
-				53AD8E681F8B6A320066191C /* FontHelper.swift in Sources */,
 				539E1A371F8E43B200E769D5 /* ExtString.swift in Sources */,
 				539E1A391F8E6AF800E769D5 /* SnapKit.swift in Sources */,
 				53B6C2331F9098EF0027CD4E /* ExtUIView.swift in Sources */,

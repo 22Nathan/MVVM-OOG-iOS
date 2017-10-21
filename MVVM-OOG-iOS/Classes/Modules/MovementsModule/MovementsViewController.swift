@@ -9,6 +9,9 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import RxDataSources
+import SVProgressHUD
+import SDWebImage
 
 class MovementsViewController: UIViewController,UIScrollViewDelegate {
     
@@ -16,8 +19,10 @@ class MovementsViewController: UIViewController,UIScrollViewDelegate {
     var scrollView = UIScrollView()
     var segmentedControl = UISegmentedControl()
     
-    //MARK: - Model
-    var testArray : [[String]] = [["123","232","3123","dssa"]]
+    var viewModel = MovesmentViewModel()
+    let bag = DisposeBag()
+    let dataSource = RxTableViewSectionedReloadDataSource<SectionTableModel>()
+    typealias SectionTableModel = SectionModel<String,Movement>
     
     //MARK: - LifeCycle
     override func viewDidLoad() {
@@ -25,7 +30,35 @@ class MovementsViewController: UIViewController,UIScrollViewDelegate {
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         view.addSubViews(subViews: [segmentedControl,scrollView])
         initialUI()
-        movementTableView.reloadData()
+        movementTableView.delegate = self
+        movementTableView.register(MovementTableViewCell.self, forCellReuseIdentifier: "Movement")
+        
+        dataSource.configureCell = {(_,tv,indexPath,item) in
+            let cell = tv.dequeueReusableCell(withIdentifier: "Movement", for: indexPath) as! MovementTableViewCell
+            cell.usernameLabel.text = item.owner_userName
+            cell.userAvatar.sd_setImage(with: URL(string: item.owner_avatar) , placeholderImage: #imageLiteral(resourceName: "defaultImage"))
+            return cell
+        }
+
+        viewModel.MovementList.subscribe(
+            onNext:{ movementArray in
+                self.movementTableView.dataSource = nil
+                Observable.just(self.createSectionModel(movementArray))
+                          .bind(to: self.movementTableView.rx.items(dataSource: self.dataSource))
+                          .addDisposableTo(self.bag)
+            },
+            onError:{ error in
+                SVProgressHUD.showError(withStatus: error.localizedDescription)
+            },
+            onDisposed:{
+                print("Finish Login Request.")
+            }).addDisposableTo(bag)
+
+        viewModel.requestList()
+    }
+    
+    private func createSectionModel(_ movementList: [Movement]) -> [SectionTableModel]{
+        return [SectionTableModel(model: "", items: movementList)]
     }
     
     private func initialUI(){
@@ -56,9 +89,6 @@ class MovementsViewController: UIViewController,UIScrollViewDelegate {
         movementTableView.allowsSelection = false
         scrollView.addSubview(movementTableView)
 //        movementTableView.closelyInside(scrollView)
-        movementTableView.delegate = self
-        movementTableView.dataSource = self
-        movementTableView.register(MovementTableViewCell.self, forCellReuseIdentifier: "Movement")
     }
     
     /*
@@ -70,5 +100,4 @@ class MovementsViewController: UIViewController,UIScrollViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-
 }
