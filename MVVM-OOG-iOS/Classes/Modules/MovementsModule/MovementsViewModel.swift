@@ -14,9 +14,9 @@ import SwiftyJSON
 import Alamofire
 import RealmSwift
 
-struct MovesmentViewModel {
+class MovesmentViewModel {
     
-    var model: Movement?
+    var model: [Movement] = []
     
     fileprivate let MovementSubject = PublishSubject<[Movement]>()
     var MovementList: Observable<[Movement]>{
@@ -24,27 +24,42 @@ struct MovesmentViewModel {
     }
     let bag = DisposeBag()
     
-    func requestList(){
+    func prepareData(completionHandler: @escaping ()->(),isRefresh : Bool = false){
+        if isRefresh{
+            requestMovements { completionHandler() }
+        }else if let cacheMovements = cache.object(forKey: movementsCacheKey){
+            model = self.parseMovementModel(JSON.parse(cacheMovements as! String))
+            completionHandler()
+            self.MovementSubject.onNext(model)
+        }else{
+            requestMovements { completionHandler() }
+        }
+    }
+    
+    private func requestMovements(completionHandler: @escaping ()->()){
         let realm = try! Realm()
         let currentUser = realm.objects(User.self).filter("uuid == '\(OOGUserDefault.uuid)'").first
         let provider = MoyaProvider<UserAPI>()
-        var movementList : [Movement] = []
         
         provider.request(.SubscribeMovement(userID: (currentUser?.userID)!)) { (result) in
             switch result {
             case let .success(moyaResponse):
                 let response = moyaResponse.data
-                movementList = self.parseMovementModel(response)
-                self.MovementSubject.onNext(movementList)
+                let json = JSON(response)
+                // save to Cache
+                cache.setObject(json.rawString()! as NSString, forKey: movementsCacheKey)
+                self.model = self.parseMovementModel(json)
+                completionHandler()
+                self.MovementSubject.onNext(self.model)
             case .failure(_):
                 self.MovementSubject.onError(NetworkError.CannotGetServerResponse)
             }
         }
     }
     
-    private func parseMovementModel(_ response: Data) -> [Movement]{
+    private func parseMovementModel(_ json: JSON) -> [Movement]{
         var movementList : [Movement] = []
-        let json = JSON(response)
+        
         let movments = json["movements"].arrayValue
         for movementJSON in movments{
             let movementsType = movementJSON["movementType"].intValue
@@ -74,11 +89,6 @@ struct MovesmentViewModel {
             movement.owner_userName = owner_userName
             movement.imageUrls = imageUrl
             
-//            guard let realm = try? Realm() else {
-//                return [nil]
-//            }
-            let realm = try! Realm()
-            updateObjc(movement, with: realm)
             movementList.append(movement)
         }
         return movementList

@@ -12,12 +12,14 @@ import RxSwift
 import RxDataSources
 import SVProgressHUD
 import SDWebImage
+import DGElasticPullToRefresh
 
-class MovementsViewController: UIViewController,UIScrollViewDelegate {
+class MovementsViewController: UIViewController {
     
     var movementTableView = UITableView()
     var scrollView = UIScrollView()
     var segmentedControl = UISegmentedControl()
+    let loadingView = DGElasticPullToRefreshLoadingViewCircle()
     
     var viewModel = MovesmentViewModel()
     let bag = DisposeBag()
@@ -34,6 +36,11 @@ class MovementsViewController: UIViewController,UIScrollViewDelegate {
         
         movementTableView.delegate = self
         movementTableView.register(MovementTableViewCell.self, forCellReuseIdentifier: "Movement")
+        movementTableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
+            self?.viewModel.prepareData(completionHandler: { () -> Void in
+                self?.movementTableView.dg_stopLoading()
+            },isRefresh: true)
+            }, loadingView: loadingView)
         setConfigureCell()
         
         viewModel.MovementList.subscribe(
@@ -50,7 +57,9 @@ class MovementsViewController: UIViewController,UIScrollViewDelegate {
                 print("Finish Login Request.")
             }).addDisposableTo(bag)
 
-        viewModel.requestList()
+        viewModel.prepareData(completionHandler: { () -> Void in
+            self.movementTableView.dg_stopLoading()
+        })
     }
     
     private func setConfigureCell(){
@@ -58,6 +67,7 @@ class MovementsViewController: UIViewController,UIScrollViewDelegate {
             let cell = tv.dequeueReusableCell(withIdentifier: "Movement", for: indexPath) as! MovementTableViewCell
             cell.usernameLabel.text = item.owner_userName
             cell.userAvatar.sd_setImage(with: URL(string: item.owner_avatar) , placeholderImage: #imageLiteral(resourceName: "defaultImage"))
+            cell.testImage.sd_setImage(with: URL(string: item.imageUrls) , placeholderImage: #imageLiteral(resourceName: "defaultImage"))
             return cell
         }
     }
@@ -93,9 +103,7 @@ class MovementsViewController: UIViewController,UIScrollViewDelegate {
         movementTableView.frame = scrollViewFrame
         movementTableView.allowsSelection = false
         scrollView.addSubview(movementTableView)
-//        movementTableView.closelyInside(scrollView)
     }
-    
     /*
     // MARK: - Navigation
 
@@ -105,4 +113,20 @@ class MovementsViewController: UIViewController,UIScrollViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+}
+
+extension MovementsViewController: UIScrollViewDelegate{
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let segments = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+        segmentedControl.selectedSegmentIndex = segments
+        segmentChanged(segmentedControl)
+    }
+    
+    func segmentChanged(_ sender : UISegmentedControl){
+        let index = sender.selectedSegmentIndex
+        var frame = scrollView.frame
+        frame.origin.x = frame.size.width * CGFloat(index)
+        frame.origin.y = 0
+        scrollView.scrollRectToVisible(frame, animated: true)
+    }
 }

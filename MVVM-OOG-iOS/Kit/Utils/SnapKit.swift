@@ -185,13 +185,6 @@ extension UIView {
         return self
     }
     
-    /// 紧贴在父控件中
-    @discardableResult func closelyInside(_ view: UIView) -> Self{
-        autoCheckInto()
-        self.top(0).bottom(0).left(0).right(0)
-        return self
-    }
-    
     /// 添加子控件
     @discardableResult func with(_ closure: () -> Void) -> Self {
         autoCheckInto()

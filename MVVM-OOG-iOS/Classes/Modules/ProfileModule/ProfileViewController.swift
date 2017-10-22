@@ -30,6 +30,7 @@ class ProfileViewController: UIViewController {
                 alert.addAction(UIAlertAction(title: "确定", style: UIAlertActionStyle.default, handler: { action in
                     OOGUserDefault.ifLogin = false
                     OOGUserDefault.uuid = ""
+                    cache.removeObject(forKey: movementsCacheKey)
                     let loginVC = LoginViewController()
                     self.present(loginVC, animated: true, completion: nil)
                 }))

@@ -16,9 +16,11 @@ class MovementTableViewCell: UITableViewCell {
     var imageScrollView = UIScrollView()
     var pageControl = UIPageControl()
     
+    var testImage = UIImageView()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.contentView.addSubViews(subViews: [userAvatar,usernameLabel,imageScrollView,pageControl])
+        self.contentView.addSubViews(subViews: [userAvatar,usernameLabel,testImage])
         layoutSubviews()
     }
     
@@ -35,13 +37,14 @@ class MovementTableViewCell: UITableViewCell {
         
         usernameLabel.top(5).after(userAvatar,4).height(21).width(120)
         
-        imageScrollView.below(userAvatar, 10)
-        imageScrollView.left(0).right(0).height(UIScreen.main.bounds.height)
-        
-        imageScrollView.addSubview(pageControl)
-        pageControl.centerX()
-        pageControl.bottom(8)
-        pageControl.currentPageIndicatorTintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
-        pageControl.hidesForSinglePage = true
+        testImage.below(userAvatar, 10).left(0).right(0).width(UIScreen.main.bounds.width).height(UIScreen.main.bounds.width)
+//        imageScrollView.below(userAvatar, 10)
+//        imageScrollView.left(0).right(0).height(UIScreen.main.bounds.height)
+//
+//        imageScrollView.addSubview(pageControl)
+//        pageControl.centerX()
+//        pageControl.bottom(8)
+//        pageControl.currentPageIndicatorTintColor = #colorLiteral(red: 0.2392156869, green: 0.6745098233, blue: 0.9686274529, alpha: 1)
+//        pageControl.hidesForSinglePage = true
     }
 }
