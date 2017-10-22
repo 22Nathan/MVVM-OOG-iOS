@@ -15,4 +15,5 @@ target 'MVVM-OOG-iOS' do
     pod 'RxSwift', '~> 3.3'
     pod 'RxCocoa', '~> 3.3'
     pod 'RxDataSources'
+    pod 'DGElasticPullToRefresh'
 end

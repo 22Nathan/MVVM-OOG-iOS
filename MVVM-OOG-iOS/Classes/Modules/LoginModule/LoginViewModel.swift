@@ -51,7 +51,8 @@ struct LoginViewModel {
                                             return
                                         }
                                         updateObjc(user, with: realm)
-                                        Cache.uuidCache.value = user.uuid
+                                        OOGUserDefault.ifLogin = true
+                                        OOGUserDefault.uuid = user.uuid
                                         
                                         self.loginInfoSubject.onNext("ok")
                                     }

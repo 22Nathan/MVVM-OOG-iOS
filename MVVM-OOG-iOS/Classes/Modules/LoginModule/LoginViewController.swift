@@ -25,7 +25,7 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         view.addSubViews(subViews: [telTextField,passwordTextField,loginButton])
-        initialUI()
+        layoutSubViews()
         
         //Subscribe Valid telNumber
         let telObservable = self.telTextField.rx.text.asObservable().map { (input: String?) -> Bool in
@@ -93,7 +93,7 @@ class LoginViewController: UIViewController {
         ).addDisposableTo(bag)
     }
     
-    private func initialUI(){
+    private func layoutSubViews(){
         telTextField.placeholder = "请输入手机号"
         telTextField.text = "15051857918"
         telTextField.borderStyle = .roundedRect

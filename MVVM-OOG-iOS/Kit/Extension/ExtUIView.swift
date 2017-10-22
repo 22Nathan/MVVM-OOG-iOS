@@ -15,4 +15,11 @@ extension UIView{
             self.addSubview(subView)
         }
     }
+    
+    func removeAllSubviews() {
+        for view in subviews {
+            view.removeFromSuperview()
+        }
+    }
 }
+

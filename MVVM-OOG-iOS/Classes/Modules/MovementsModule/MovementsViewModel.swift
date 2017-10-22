@@ -26,7 +26,7 @@ struct MovesmentViewModel {
     
     func requestList(){
         let realm = try! Realm()
-        let currentUser = realm.objects(User.self).filter("uuid == '\(Cache.uuidCache.value)'").first
+        let currentUser = realm.objects(User.self).filter("uuid == '\(OOGUserDefault.uuid)'").first
         let provider = MoyaProvider<UserAPI>()
         var movementList : [Movement] = []
         
@@ -58,13 +58,13 @@ struct MovesmentViewModel {
             let owner_userName = movementJSON["owner"]["username"].stringValue
             let owner_position = movementJSON["owner"]["position"].stringValue
             
-//            //parse imageUrl
-//            let imageUrlsJSON = movementJSON["image_url"].arrayValue
-//            var imageUrl = ""
-//            for url in imageUrlsJSON{
-//                imageUrl = url.stringValue
-//                break
-//            }
+            //parse imageUrl
+            let imageUrlsJSON = movementJSON["image_url"].arrayValue
+            var imageUrl = ""
+            for url in imageUrlsJSON{
+                imageUrl = url.stringValue
+                break
+            }
             
             let movement = Movement()
             movement.content = content
@@ -72,7 +72,7 @@ struct MovesmentViewModel {
             movement.owner_avatar = owner_avatar
             movement.owner_position = owner_position
             movement.owner_userName = owner_userName
-//            movement.imageUrls = imageUrl
+            movement.imageUrls = imageUrl
             
 //            guard let realm = try? Realm() else {
 //                return [nil]

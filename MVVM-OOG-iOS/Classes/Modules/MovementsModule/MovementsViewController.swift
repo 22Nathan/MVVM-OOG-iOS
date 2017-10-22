@@ -27,19 +27,15 @@ class MovementsViewController: UIViewController,UIScrollViewDelegate {
     //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         view.addSubViews(subViews: [segmentedControl,scrollView])
-        initialUI()
+        layoutSubViews()
+        
         movementTableView.delegate = self
         movementTableView.register(MovementTableViewCell.self, forCellReuseIdentifier: "Movement")
+        setConfigureCell()
         
-        dataSource.configureCell = {(_,tv,indexPath,item) in
-            let cell = tv.dequeueReusableCell(withIdentifier: "Movement", for: indexPath) as! MovementTableViewCell
-            cell.usernameLabel.text = item.owner_userName
-            cell.userAvatar.sd_setImage(with: URL(string: item.owner_avatar) , placeholderImage: #imageLiteral(resourceName: "defaultImage"))
-            return cell
-        }
-
         viewModel.MovementList.subscribe(
             onNext:{ movementArray in
                 self.movementTableView.dataSource = nil
@@ -57,11 +53,20 @@ class MovementsViewController: UIViewController,UIScrollViewDelegate {
         viewModel.requestList()
     }
     
+    private func setConfigureCell(){
+        dataSource.configureCell = {(_,tv,indexPath,item) in
+            let cell = tv.dequeueReusableCell(withIdentifier: "Movement", for: indexPath) as! MovementTableViewCell
+            cell.usernameLabel.text = item.owner_userName
+            cell.userAvatar.sd_setImage(with: URL(string: item.owner_avatar) , placeholderImage: #imageLiteral(resourceName: "defaultImage"))
+            return cell
+        }
+    }
+    
     private func createSectionModel(_ movementList: [Movement]) -> [SectionTableModel]{
         return [SectionTableModel(model: "", items: movementList)]
     }
     
-    private func initialUI(){
+    private func layoutSubViews(){
         //initial segmentedControl
         segmentedControl.top(25).left(0).right(0)
         segmentedControl.tintColor = UIColor.clear
@@ -73,8 +78,8 @@ class MovementsViewController: UIViewController,UIScrollViewDelegate {
         segmentedControl.setTitleTextAttributes(selectedTextAttributes as [NSObject : AnyObject], for: UIControlState.selected)
         
         //initial scrollView
-        scrollView.frame = CGRect(x: 0, y: segmentedControl.frame.height, width: view.frame.width, height: view.frame.height - segmentedControl.frame.height)
-        scrollView.below(segmentedControl).width(view.frame.width).height(view.frame.height - segmentedControl.frame.height)
+        scrollView.frame = CGRect(x: 0, y: segmentedControl.frame.height, width: view.frame.width, height: view.frame.height - segmentedControl.frame.height - 100)
+        scrollView.below(segmentedControl).width(view.frame.width).height(view.frame.height - segmentedControl.frame.height - 100)
         scrollView.delegate = self
         scrollView.isPagingEnabled = true
         let scrollViewFrame = scrollView.bounds

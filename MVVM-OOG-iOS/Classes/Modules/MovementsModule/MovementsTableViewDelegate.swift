@@ -11,10 +11,6 @@ import UIKit
 
 extension MovementsViewController : UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 55
+        return UIScreen.main.bounds.width + 8 + 55
     }
 }
-
-
-
-
